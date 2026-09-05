@@ -206,20 +206,7 @@ export default function ModelComparisonPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         <SectionHeader
           title="Model Comparison"
-          subtitle="Static embedding and architecture comparison preview"
         />
-
-        <div className="rounded-2xl border border-yellow-500/30 bg-yellow-500/5 px-5 py-4">
-          <div className="flex items-start gap-3">
-            <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-yellow-400 animate-pulse" />
-            <div>
-              <p className="text-sm font-semibold text-yellow-300">STATIC DEMO MODE</p>
-              <p className="text-xs text-white/50 mt-1 leading-relaxed">
-                This page deliberately makes no API or backend request. The charts are fixed visual demonstration values so the comparison screen renders even while the embedding endpoint is unavailable.
-              </p>
-            </div>
-          </div>
-        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
           {models.map(model => (

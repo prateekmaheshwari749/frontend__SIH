@@ -3,25 +3,33 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { DataProvider } from './contexts/DataContext';
 import ProtectedRoute from './components/ProtectedRoute';
-import { WaterCursorTrail, BubbleClickEffect } from './components/WaterEffects';
+import {
+  WaterCursorTrail,
+  BubbleClickEffect,
+} from './components/WaterEffects';
 
 // Eagerly loaded
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 
 // Lazy loaded pages
-const ChatPage            = lazy(() => import('./pages/ChatPage'));
-const InputPage           = lazy(() => import('./pages/InputPage'));
-const WorldMapPage        = lazy(() => import('./pages/WorldMapPage'));
-const DashboardPage       = lazy(() => import('./pages/DashboardPage'));
-const MapPage             = lazy(() => import('./pages/MapPage'));
-const CyclonePage         = lazy(() => import('./pages/CyclonePage'));
-const SurfacePage         = lazy(() => import('./pages/SurfacePage'));
-const DocsPage            = lazy(() => import('./pages/DocsPage'));
-const GovPortalPage       = lazy(() => import('./pages/GovPortalPage'));
-const ValidationPage      = lazy(() => import('./pages/ValidationPage'));
-const ForecastPage        = lazy(() => import('./pages/ForecastPage'));
-const ModelComparisonPage = lazy(() => import('./pages/ModelComparisonPage'));
+const ChatPage = lazy(() => import('./pages/ChatPage'));
+const InputPage = lazy(() => import('./pages/InputPage'));
+const WorldMapPage = lazy(() => import('./pages/WorldMapPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const MapPage = lazy(() => import('./pages/MapPage'));
+const CyclonePage = lazy(() => import('./pages/CyclonePage'));
+const CycloneAnimationPreview = lazy(
+  () => import('./pages/CycloneAnimationPreview')
+);
+const SurfacePage = lazy(() => import('./pages/SurfacePage'));
+const DocsPage = lazy(() => import('./pages/DocsPage'));
+const GovPortalPage = lazy(() => import('./pages/GovPortalPage'));
+const ValidationPage = lazy(() => import('./pages/ValidationPage'));
+const ForecastPage = lazy(() => import('./pages/ForecastPage'));
+const ModelComparisonPage = lazy(
+  () => import('./pages/ModelComparisonPage')
+);
 
 function PageLoader() {
   return (
@@ -39,30 +47,65 @@ export default function App() {
     <BrowserRouter>
       <WaterCursorTrail />
       <BubbleClickEffect />
+
       <AuthProvider>
         <DataProvider>
           <Suspense fallback={<PageLoader />}>
             <Routes>
-              <Route path="/"         element={<HomePage />} />
-              <Route path="/login"    element={<LoginPage />} />
-              <Route path="/chat"     element={<ChatPage />} />
-              <Route path="/input"    element={<InputPage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/chat" element={<ChatPage />} />
+              <Route path="/input" element={<InputPage />} />
               <Route path="/worldmap" element={<WorldMapPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/map"      element={<MapPage />} />
-              <Route path="/cyclone"  element={<CyclonePage />} />
-              <Route path="/surface"  element={<SurfacePage />} />
-              <Route path="/docs"     element={
-                <ProtectedRoute><DocsPage /></ProtectedRoute>
-              } />
-              <Route path="/gov"      element={
-              <ProtectedRoute requiresGovernment>
-                  <GovPortalPage />
-                </ProtectedRoute>
-              } />
-              <Route path="/validation" element={<ValidationPage />} />
-              <Route path="/forecast"  element={<ForecastPage />} />
-              <Route path="/compare"   element={<ModelComparisonPage />} />
+              <Route path="/map" element={<MapPage />} />
+
+              {/* Original Cyclone Page */}
+              <Route
+                path="/cyclone"
+                element={<CyclonePage />}
+              />
+
+              {/* Standalone Cyclone Animation Preview */}
+              <Route
+                path="/cyclone-preview"
+                element={<CycloneAnimationPreview />}
+              />
+
+              <Route path="/surface" element={<SurfacePage />} />
+
+              <Route
+                path="/docs"
+                element={
+                  <ProtectedRoute>
+                    <DocsPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/gov"
+                element={
+                  <ProtectedRoute requiresGovernment>
+                    <GovPortalPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/validation"
+                element={<ValidationPage />}
+              />
+
+              <Route
+                path="/forecast"
+                element={<ForecastPage />}
+              />
+
+              <Route
+                path="/compare"
+                element={<ModelComparisonPage />}
+              />
             </Routes>
           </Suspense>
         </DataProvider>
