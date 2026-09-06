@@ -24,6 +24,9 @@ import {
 
 import Navbar from '../components/Navbar';
 import { DEPTH_LEVELS } from '../contexts/DataContext';
+import { motion } from 'framer-motion';
+import OceanHeroCanvas from '../components/3d/OceanHeroCanvas';
+import DepthZoneCanvas from '../components/3d/DepthZoneCanvas';
 
 /* ============================================================
    DEPTH ZONES
@@ -1200,10 +1203,13 @@ export default function HomePage() {
             items-center
             justify-center
             overflow-hidden
-            pt-16
+            pt-20
+            pb-12
+            px-4
+            sm:px-6
+            lg:px-8
           "
         >
-
           {/* Hero water depth overlay */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -1213,307 +1219,143 @@ export default function HomePage() {
             }}
           />
 
-          {/* Hero content */}
-          <div
-            className="
-              relative
-              z-10
-              text-center
-              px-6
-              max-w-5xl
-              mx-auto
-            "
-          >
-
-            {/* Ocean status */}
-            <div
-              className="
-                inline-flex
-                items-center
-                gap-2
-                px-4
-                py-2
-                rounded-full
-                text-sm
-                mb-10
-              "
-              style={{
-                background:
-                  'rgba(4,40,55,0.62)',
-                border:
-                  '1px solid rgba(78,201,215,0.22)',
-                color: '#66dce8',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              <span
-                className="
-                  w-2
-                  h-2
-                  rounded-full
-                  bg-cyan-400
-                  animate-pulse
-                "
-              />
-
-              0 m · Sea Surface · Real-time monitoring active
-            </div>
-
-            {/* Main heading */}
-            <h1
-              className="
-                text-5xl
-                sm:text-7xl
-                font-black
-                mb-6
-                leading-tight
-                tracking-tight
-              "
-            >
-              <span
-                style={{
-                  background:
-                    'linear-gradient(135deg,#38d7df 0%,#249bd0 45%,#6d75e8 100%)',
-                  WebkitBackgroundClip:
-                    'text',
-                  WebkitTextFillColor:
-                    'transparent',
-                }}
+          <div className="relative z-10 max-w-7xl mx-auto w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+              
+              {/* Left Column: Hero Text, CTAs, and Animated Stats (5 cols) */}
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                className="lg:col-span-5 text-left space-y-6"
               >
-                Ocean &amp; Climate
-              </span>
+                {/* Ocean status badge */}
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    px-3.5
+                    py-1.5
+                    rounded-full
+                    text-xs
+                    font-mono
+                  "
+                  style={{
+                    background: 'rgba(4,40,55,0.7)',
+                    border: '1px solid rgba(78,201,215,0.3)',
+                    color: '#66dce8',
+                    backdropFilter: 'blur(8px)',
+                  }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                  0–1000m Subsurface AI Digital Twin Active
+                </div>
 
-              <br />
-
-              <span className="text-white">
-                Intelligence Platform
-              </span>
-            </h1>
-
-            <p
-              className="
-                text-white/55
-                text-lg
-                max-w-2xl
-                mx-auto
-                mb-12
-                leading-relaxed
-              "
-            >
-              Reconstructing the{' '}
-              <span className="text-cyan-300 font-semibold">
-                subsurface ocean
-              </span>{' '}
-              from satellite observations using deep learning
-              embeddings — 15 depth levels, 0 to 1000 m, across
-              the North Indian Ocean.
-            </p>
-
-            {/* CTA buttons */}
-            <div
-              className="
-                flex
-                flex-wrap
-                gap-4
-                justify-center
-                mb-16
-              "
-            >
-              <button
-                onClick={() =>
-                  navigate('/dashboard')
-                }
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  px-7
-                  py-3.5
-                  rounded-xl
-                  text-white
-                  font-bold
-                  text-sm
-                  hover:opacity-90
-                  transition-all
-                  hover:scale-105
-                "
-                style={{
-                  background:
-                    'linear-gradient(135deg,#0891a7,#2563a8)',
-                  boxShadow:
-                    '0 0 30px rgba(6,182,212,0.22)',
-                }}
-              >
-                Open Dashboard
-                <ArrowRight size={16} />
-              </button>
-
-              <button
-                onClick={() =>
-                  navigate('/forecast')
-                }
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  px-7
-                  py-3.5
-                  rounded-xl
-                  font-bold
-                  text-sm
-                  text-white
-                  hover:scale-105
-                  transition-all
-                "
-                style={{
-                  background:
-                    'rgba(4,30,43,0.68)',
-                  border:
-                    '1px solid rgba(125,220,230,0.14)',
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                <Calendar
-                  size={16}
-                  className="text-cyan-400"
-                />
-                7-Day Forecast
-              </button>
-
-              <button
-                onClick={() =>
-                  navigate('/chat')
-                }
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  px-7
-                  py-3.5
-                  rounded-xl
-                  font-bold
-                  text-sm
-                  text-white
-                  hover:scale-105
-                  transition-all
-                "
-                style={{
-                  background:
-                    'rgba(4,30,43,0.68)',
-                  border:
-                    '1px solid rgba(125,220,230,0.14)',
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                <MessageSquare
-                  size={16}
-                  className="text-purple-400"
-                />
-                Ask X AI
-              </button>
-            </div>
-
-            {/* =================================================
-                STATS
-            ================================================= */}
-
-            <div
-              className="
-                grid
-                grid-cols-2
-                md:grid-cols-4
-                gap-4
-                max-w-2xl
-                mx-auto
-              "
-            >
-              {[
-                {
-                  label: 'Depth Levels',
-                  value: 15,
-                  suffix: '',
-                  glow: '#06b6d4',
-                },
-                {
-                  label: 'Max Depth',
-                  value: 1000,
-                  suffix: 'm',
-                  glow: '#3b82f6',
-                },
-                {
-                  label: 'Grid Points',
-                  value: 20000,
-                  suffix: '+',
-                  glow: '#8b5cf6',
-                },
-                {
-                  label: 'Accuracy',
-                  value: 94,
-                  suffix: '%',
-                  glow: '#10b981',
-                },
-              ].map(
-                ({
-                  label,
-                  value,
-                  suffix,
-                  glow,
-                }) => (
-                  <PrismCard
-                    key={label}
-                    glowColor={glow}
-                    className="p-4 text-center"
+                {/* Main Heading */}
+                <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight">
+                  <span
+                    style={{
+                      background: 'linear-gradient(135deg,#38d7df 0%,#249bd0 45%,#8b5cf6 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
                   >
-                    <p
-                      className="text-2xl font-black"
-                      style={{
-                        background: `linear-gradient(135deg,${glow},#fff)`,
-                        WebkitBackgroundClip:
-                          'text',
-                        WebkitTextFillColor:
-                          'transparent',
-                      }}
-                    >
-                      <AnimNum
-                        target={value}
-                        suffix={suffix}
-                      />
-                    </p>
+                    Ocean &amp; Climate
+                  </span>
+                  <br />
+                  <span className="text-white">Intelligence</span>
+                </h1>
 
-                    <p className="text-white/40 text-xs mt-1">
-                      {label}
-                    </p>
-                  </PrismCard>
-                )
-              )}
+                {/* Subtitle */}
+                <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-xl">
+                  Reconstructing the{' '}
+                  <span className="text-cyan-300 font-semibold">subsurface ocean</span> from satellite
+                  observations using deep learning embeddings — 15 depth levels, 0 to 1000 m, across the North Indian Ocean.
+                </p>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <button
+                    onClick={() => navigate('/dashboard')}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl text-white font-bold text-sm hover:opacity-95 transition-all hover:scale-105 cursor-pointer shadow-lg"
+                    style={{
+                      background: 'linear-gradient(135deg,#0891a7,#2563eb)',
+                      boxShadow: '0 0 25px rgba(6,182,212,0.35)',
+                    }}
+                  >
+                    Open Dashboard
+                    <ArrowRight size={15} />
+                  </button>
+
+                  <button
+                    onClick={() => navigate('/forecast')}
+                    className="flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white hover:scale-105 transition-all cursor-pointer"
+                    style={{
+                      background: 'rgba(4,30,43,0.7)',
+                      border: '1px solid rgba(125,220,230,0.2)',
+                      backdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    <Calendar size={15} className="text-cyan-400" />
+                    7-Day Forecast
+                  </button>
+
+                  <button
+                    onClick={() => navigate('/chat')}
+                    className="flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white hover:scale-105 transition-all cursor-pointer"
+                    style={{
+                      background: 'rgba(4,30,43,0.7)',
+                      border: '1px solid rgba(125,220,230,0.2)',
+                      backdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    <MessageSquare size={15} className="text-purple-400" />
+                    Ask X AI
+                  </button>
+                </div>
+
+                {/* Stats Grid with 3D cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-3 pt-4">
+                  {[
+                    { label: 'Depth Levels', value: 15, suffix: '', glow: '#06b6d4' },
+                    { label: 'Max Depth', value: 1000, suffix: 'm', glow: '#3b82f6' },
+                    { label: 'Grid Points', value: 20000, suffix: '+', glow: '#8b5cf6' },
+                    { label: 'Accuracy', value: 94, suffix: '%', glow: '#10b981' },
+                  ].map(({ label, value, suffix, glow }) => (
+                    <PrismCard key={label} glowColor={glow} className="p-3 text-center">
+                      <p
+                        className="text-xl font-black font-mono"
+                        style={{
+                          background: `linear-gradient(135deg,${glow},#fff)`,
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                        }}
+                      >
+                        <AnimNum target={value} suffix={suffix} />
+                      </p>
+                      <p className="text-white/40 text-[11px] mt-0.5">{label}</p>
+                    </PrismCard>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Right Column: 3D Interactive Ocean Digital Twin (7 cols) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+                className="lg:col-span-7 w-full"
+              >
+                <OceanHeroCanvas />
+              </motion.div>
+
             </div>
 
             {/* Dive indicator */}
-            <div
-              className="
-                mt-16
-                flex
-                flex-col
-                items-center
-                gap-2
-                text-white/25
-                text-xs
-                animate-bounce
-              "
-            >
-              <span>
-                Scroll to dive deeper
-              </span>
-
-              <div
-                className="
-                  w-px
-                  h-8
-                  bg-gradient-to-b
-                  from-cyan-300/30
-                  to-transparent
-                "
-              />
+            <div className="mt-12 flex flex-col items-center gap-2 text-white/30 text-xs animate-bounce">
+              <span>Scroll to dive deeper through the depth layers</span>
+              <div className="w-px h-8 bg-gradient-to-b from-cyan-400/40 to-transparent" />
             </div>
           </div>
         </section>
@@ -1768,7 +1610,7 @@ export default function HomePage() {
                       </p>
                     </div>
 
-                    {/* DEPTH VISUAL */}
+                    {/* DEPTH VISUAL WITH 3D SIMULATION CANVAS */}
                     <div
                       className={`
                         ${
@@ -1777,12 +1619,21 @@ export default function HomePage() {
                             : ''
                         }
                         flex
+                        flex-col
+                        sm:flex-row
                         items-center
                         justify-center
+                        gap-6
+                        w-full
                       `}
                     >
-                      <div className="relative flex gap-4">
+                      {/* Interactive 3D Zone Simulation Canvas */}
+                      <div className="flex-1 w-full max-w-md">
+                        <DepthZoneCanvas zoneId={zone.id} color={zone.color} />
+                      </div>
 
+                      {/* Vertical Stratification Depth Strip */}
+                      <div className="relative flex gap-3 shrink-0">
                         <div
                           className="
                             flex
@@ -1793,117 +1644,63 @@ export default function HomePage() {
                             border-white/10
                           "
                           style={{
-                            width: '56px',
-                            height: '380px',
-                            boxShadow: `0 0 40px ${zone.color}22`,
+                            width: '42px',
+                            height: '280px',
+                            boxShadow: `0 0 30px ${zone.color}22`,
                           }}
                         >
-                          {DEPTH_LEVELS.map(
-                            (d) => {
-                              const isActive =
-                                d >=
-                                  zone.depth &&
-                                d <
-                                  (DEPTH_ZONES[
-                                    zi + 1
-                                  ]?.depth ??
-                                    1001);
+                          {DEPTH_LEVELS.map((d) => {
+                            const isActive =
+                              d >= zone.depth &&
+                              d < (DEPTH_ZONES[zi + 1]?.depth ?? 1001);
 
-                              const temp =
-                                28 -
-                                (d / 1000) *
-                                  26;
+                            const temp = 28 - (d / 1000) * 26;
+                            const n = Math.max(0, Math.min(1, (temp - 2) / 27));
+                            const bg =
+                              n < 0.25
+                                ? '#1e40af'
+                                : n < 0.5
+                                ? '#06b6d4'
+                                : n < 0.75
+                                ? '#fbbf24'
+                                : '#ef4444';
 
-                              const n = Math.max(
-                                0,
-                                Math.min(
-                                  1,
-                                  (temp - 2) /
-                                    27
-                                )
-                              );
-
-                              const bg =
-                                n < 0.25
-                                  ? '#1e40af'
-                                  : n < 0.5
-                                    ? '#06b6d4'
-                                    : n <
-                                        0.75
-                                      ? '#fbbf24'
-                                      : '#ef4444';
-
-                              return (
-                                <div
-                                  key={d}
-                                  title={`${d}m · ${temp.toFixed(
-                                    1
-                                  )}°C`}
-                                  className="
-                                    flex-1
-                                    transition-all
-                                    duration-300
-                                  "
-                                  style={{
-                                    background:
-                                      bg,
-                                    opacity:
-                                      isActive
-                                        ? 1
-                                        : 0.3,
-                                    filter:
-                                      isActive
-                                        ? `brightness(1.3) drop-shadow(0 0 4px ${bg})`
-                                        : 'none',
-                                  }}
-                                />
-                              );
-                            }
-                          )}
+                            return (
+                              <div
+                                key={d}
+                                title={`${d}m · ${temp.toFixed(1)}°C`}
+                                className="flex-1 transition-all duration-300"
+                                style={{
+                                  background: bg,
+                                  opacity: isActive ? 1 : 0.25,
+                                  filter: isActive
+                                    ? `brightness(1.3) drop-shadow(0 0 4px ${bg})`
+                                    : 'none',
+                                }}
+                              />
+                            );
+                          })}
                         </div>
 
                         {/* Labels */}
                         <div
-                          className="
-                            flex
-                            flex-col-reverse
-                            justify-between
-                            py-0.5
-                          "
-                          style={{
-                            height: '380px',
-                          }}
+                          className="flex flex-col-reverse justify-between py-0.5"
+                          style={{ height: '280px' }}
                         >
-                          {DEPTH_LEVELS.filter(
-                            (_, i) =>
-                              i % 2 === 0
-                          ).map((d) => {
+                          {DEPTH_LEVELS.filter((_, i) => i % 2 === 0).map((d) => {
                             const isActive =
                               d >= zone.depth &&
-                              d <
-                                (DEPTH_ZONES[
-                                  zi + 1
-                                ]?.depth ??
-                                  1001);
+                              d < (DEPTH_ZONES[zi + 1]?.depth ?? 1001);
 
                             return (
                               <span
                                 key={d}
-                                className="
-                                  text-[10px]
-                                  font-mono
-                                  transition-all
-                                  duration-300
-                                "
+                                className="text-[9px] font-mono transition-all duration-300"
                                 style={{
-                                  color:
-                                    isActive
-                                      ? zone.color
-                                      : 'rgba(255,255,255,0.2)',
-                                  fontWeight:
-                                    isActive
-                                      ? 700
-                                      : 400,
+                                  color: isActive
+                                    ? zone.color
+                                    : 'rgba(255,255,255,0.2)',
+                                  fontWeight: isActive ? 700 : 400,
                                 }}
                               >
                                 {d}m
@@ -1923,29 +1720,17 @@ export default function HomePage() {
                           "
                         >
                           <PrismCard
-                            glowColor={
-                              zone.color
-                            }
-                            className="
-                              px-3
-                              py-1.5
-                            "
+                            glowColor={zone.color}
+                            className="px-2.5 py-1"
                           >
                             <span
-                              className="
-                                text-xs
-                                whitespace-nowrap
-                              "
-                              style={{
-                                color:
-                                  zone.color,
-                              }}
+                              className="text-[10px] font-mono whitespace-nowrap"
+                              style={{ color: zone.color }}
                             >
                               ← Active
                             </span>
                           </PrismCard>
                         </div>
-
                       </div>
                     </div>
 
@@ -2122,8 +1907,8 @@ export default function HomePage() {
                     className="
                       text-left
                       group
-                      hover:scale-[1.02]
-                      hover:-translate-y-1
+                      card-3d
+                      cursor-pointer
                       transition-all
                       duration-200
                     "

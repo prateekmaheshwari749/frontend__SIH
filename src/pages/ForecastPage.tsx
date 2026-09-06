@@ -5,13 +5,11 @@ import {
   Thermometer,
   Layers,
   Calendar,
-  TrendingUp,
   Activity,
   Droplets,
   Waves,
   Clock,
   RefreshCw,
-  Database,
   Loader2,
   AlertTriangle,
   MapPin,
@@ -656,13 +654,6 @@ export default function ForecastPage() {
     activeSurface?.lat?.length
       ? average(
           activeSurface.lat,
-        )
-      : 0;
-
-  const activeLongitude =
-    activeSurface?.lon?.length
-      ? average(
-          activeSurface.lon,
         )
       : 0;
 

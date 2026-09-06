@@ -117,14 +117,6 @@ function metricGood(
   }
 }
 
-function metricColor(
-  metric: string,
-  value: number | null | undefined,
-) {
-  return metricGood(metric, value)
-    ? 'text-green-400'
-    : 'text-yellow-400';
-}
 
 function CustomTooltip({
   active,

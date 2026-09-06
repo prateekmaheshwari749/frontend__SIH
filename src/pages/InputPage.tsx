@@ -3,7 +3,7 @@ import {
   Upload, FileText, CheckCircle2, Loader2, AlertCircle,
   Layers, BarChart2, History, ChevronRight,
   ChevronDown, X, Eye, Calendar, MapPin, Info,
-  Thermometer, Droplets, Waves, Wind, ArrowUpDown, TrendingUp,
+  Thermometer, Droplets, Waves, Wind, ArrowUpDown,
   FileCheck, Cpu,
 } from 'lucide-react';
 import {
